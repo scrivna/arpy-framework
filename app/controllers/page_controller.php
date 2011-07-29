@@ -7,7 +7,7 @@ class PageController extends AppController {
 			
 			//$dbdata = CCache::model('Test')->select('WHERE 1=1');
 			$dbdata = 'Cached: '.date('Y-m-d H:i:s');
-			MCache::set('testdata', $dbdata, 2);
+			MCache::set('testdata', $dbdata, 10);
 			
 		}
 		

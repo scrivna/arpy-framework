@@ -22,27 +22,25 @@ class Router {
 			$_this->url = $argv[1];
 		} else {
 			$_this->is_cli = false;
-			$_this->url = substr($_SERVER['QUERY_STRING'],4);
+			$_this->url = $_SERVER['QUERY_STRING'];
 		}
 		
-		$data = explode('&',$_this->url);
-		$parts = explode('/','/'.$data[0]);
-		$parts = array_filter($parts);
+		// get parts of url
+		parse_str($_this->url, $params);
 		
-		for($i=1; $i<count($data); $i++){
-			if (!empty($data[$i])){
-				$bit = explode('=',$data[$i]);
-				if (isset($bit[1])){
-					$parts[$bit[0]] = $bit[1];
-				} else {
-					$parts[$bit[0]] = null;
-				}
-			}
+		if (isset($params['arpy_url'])){
+			// if a directory is found
+			$parts = explode('/', '/'.$params['arpy_url']);
+			unset($params['arpy_url']);
+			$_this->url_parts = array_merge($parts, $params);
+			unset($_this->url_parts[0]);
+		} else {
+			// no dir so just look for params
+			$_this->url_parts = $params;
 		}
 		
-		$_this->url_parts 	= $parts;
-		$_this->controller 	= !$_this->part(1) ? Config::get('router.default_controller') : $_this->part(1);
-		$_this->action 		= !$_this->part(2) ? Config::get('router.default_action') : $_this->part(2);
+		$_this->controller 	= $_this->part(1) ? $_this->part(1) : Config::get('router.default_controller');
+		$_this->action 		= $_this->part(2) ? $_this->part(2) : Config::get('router.default_action');
 		
 		require_once('config/routes.php');
 	}
