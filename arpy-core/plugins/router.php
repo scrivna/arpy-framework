@@ -34,6 +34,8 @@ class Router {
 				$bit = explode('=',$data[$i]);
 				if (isset($bit[1])){
 					$parts[$bit[0]] = $bit[1];
+				} else {
+					$parts[$bit[0]] = null;
 				}
 			}
 		}
