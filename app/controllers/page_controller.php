@@ -13,9 +13,10 @@ class PageController extends AppController {
 		
 		$vd = array();
 		$vd['title'] = 'Arpy\'s Running Sharpy';
-		$vd['test'] = $dbdata;
-		
+		$vd['data'] = $dbdata;
 		$this->view->set($vd);
+		
+		$this->view->set('canonical_link', Config::get('site.url'));
 		$this->view->renderInTemplate('pages/home.php');
 	}
 }
