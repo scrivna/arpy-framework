@@ -42,7 +42,7 @@ class Router {
 		
 		$_this->url_parts 	= $parts;
 		$_this->controller 	= !$_this->part(1) ? Config::get('router.default_controller') : $_this->part(1);
-		$_this->action 		= ($_this->part(2)) ? $_this->part(2) : Config::get('router.default_action');
+		$_this->action 		= !$_this->part(2) ? Config::get('router.default_action') : $_this->part(2);
 		
 		require_once('config/routes.php');
 	}
