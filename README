@@ -1,0 +1,56 @@
+Arpy Framework
+==============
+
+Arpy is a bare-bones PHP MVC framework that runs super fast and uses a 
+teeny amount of memory.
+
+It doesn't cater for every need but is designed to be quick to run, 
+quick to hack, and easy to understand!
+
+
+Built in functionality
+----------------------
+
+Arpy has some built in classes for commonly used functions however only 5 are "required". 
+Router, Controller, Config, CCache and View, everything else is pretty much left up to you.
+
+* Auth - key value for basic checks
+* CCache - for caching classes you want to have a single instance of quickly
+* Config - very simple key value store
+* Controller - for controlling app logic
+* Cookie - for basic cookie set / get / destroy
+* Curl - GET / POST for cURL-ing
+* Dater - for translating /displaying dates in different timezones
+* EMail - of the PHPMailer variety
+* FCache - for caching data to the filesystem (json encoded)
+* MCache - for caching data in memory (uses APC as default but could be improved for memcached etc)
+* Model - for simple database access, provides a few helper functions
+* Mysql_Database - slight abstraction / functions for use by Model
+* Router - for routing http requests (requires apache & mod_rewrite)
+* Session - for basic set / get access
+* Str - for some string manipulation that isn't built in, truncate etc.
+* View - rendering output, also supports templates (with some of HTML5 boilerplate)
+
+The framework is set up with some default views / logic in the controller / model to do 
+what I most commonly do. Don't like it / want it? Change it!
+
+
+### Requirements
+
+Again, this isn't built to work for every possible scenario, just what I use most commonly
+
+* Linux
+* PHP 5.3 and above
+* Apache 2 with mod_rewrite
+
+Optionally it can also make use of..
+
+* MySQL
+* PHP APC extension
+* cURL
+
+
+### Who uses it?
+
+* [365project.org](http://365project.org/) - Running the site.
+* [scrivna.com](http://scrivna.com/) - Work in progress :-)
