@@ -17,29 +17,19 @@ class Router {
 		
 		global $argv, $argc;
 		
-		$_this->is_cli = false;
-		
 		if (defined('STDIN')){
-			$_this->url = $argv[1];
 			$_this->is_cli = true;
-			
-			$_this->controller = 'cli';
-			$_this->action = 'index';
-			$_this->url_parts = array('','background','cli');
-			
-			return;
-			
+			$_this->url = $argv[1];
 		} else {
+			$_this->is_cli = false;
 			$_this->url = substr($_SERVER['QUERY_STRING'],4);
 		}
 		
 		$data = explode('&',$_this->url);
-		
 		$parts = explode('/','/'.$data[0]);
 		$parts = array_filter($parts);
 		
-		for($i=1;$i<count($data);$i++){
-		
+		for($i=1; $i<count($data); $i++){
 			if (!empty($data[$i])){
 				$bit = explode('=',$data[$i]);
 				if (isset($bit[1])){
@@ -47,20 +37,10 @@ class Router {
 				}
 			}
 		}
-		foreach ($parts as $key => $part){
-			if (stristr($part,':')){
-				$a = explode(':',$part);
-				$parts[$a[0]] = $a[1];
-				unset($parts[$key]);
-			}
-		}
 		
-		$parts['full'] = $_this->full_url();
-		$_this->url_parts = $parts;
-		
-		
-		$_this->controller = !$_this->part(1) ? Config::get('router.default_controller') : $_this->part(1);
-		$_this->action = ($_this->part(2)) ? $_this->part(2) : Config::get('router.default_action');
+		$_this->url_parts 	= $parts;
+		$_this->controller 	= !$_this->part(1) ? Config::get('router.default_controller') : $_this->part(1);
+		$_this->action 		= ($_this->part(2)) ? $_this->part(2) : Config::get('router.default_action');
 		
 		require_once('config/routes.php');
 	}
