@@ -23,8 +23,8 @@ class Router {
 			$_this->url = $argv[1];
 			$_this->is_cli = true;
 			
-			$_this->controller = 'background';
-			$_this->action = 'cli';
+			$_this->controller = 'cli';
+			$_this->action = 'index';
 			$_this->url_parts = array('','background','cli');
 			
 			return;
@@ -59,8 +59,8 @@ class Router {
 		$_this->url_parts = $parts;
 		
 		
-		$_this->controller = !$_this->part(1) ? 'page' : $_this->part(1);
-		$_this->action = ($_this->part(2)) ? $_this->part(2) : 'index';
+		$_this->controller = !$_this->part(1) ? Config::get('router.default_controller') : $_this->part(1);
+		$_this->action = ($_this->part(2)) ? $_this->part(2) : Config::get('router.default_action');
 		
 		require_once('config/routes.php');
 	}

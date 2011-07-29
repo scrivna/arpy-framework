@@ -1,4 +1,8 @@
 <?php
+// router defaults
+Config::set('router.default_controller', 'page');
+Config::set('router.default_action', 'index');
+	
 // switch environments
 if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'live'){
 
@@ -19,6 +23,7 @@ if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] == 'live'){
 	Config::set('debug', true);
 	
 	Config::set('sys.env', 'dev');
+	Config::set('router.default_controller', 'page');
 	
 	Config::set('site.url', 'http://127.0.0.1/Dropbox/Code/arpy-framework/');
 	
