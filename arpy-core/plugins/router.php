@@ -19,7 +19,7 @@ class Router {
 		
 		if (defined('STDIN')){
 			$_this->is_cli = true;
-			$_this->url = $argv[1];
+			$_this->url = 'arpy_url='.$argv[1];
 		} else {
 			$_this->is_cli = false;
 			$_this->url = $_SERVER['QUERY_STRING'];
