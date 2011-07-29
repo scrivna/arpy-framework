@@ -1,0 +1,38 @@
+<IfModule mod_security.c>
+	SecFilterEngine Off
+	SecFilterScanPOST Off
+</IfModule>
+
+IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
+
+order allow,deny
+#deny from xx.xxx.xxx.xx
+allow from all
+
+Options -Indexes
+FileETag MTime Size
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	
+	RewriteRule ^(.*/)?\.gitignore - [F,L]
+	ErrorDocument 403 "Access Forbidden"
+	
+	# remove back slash
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.+)/$ /$1 [R=301,L]
+	
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+php_flag register_globals off
+php_flag allow_url_fopen On
+php_flag magic_quotes_gpc off
+php_value date.timezone GMT
+php_value memory_limit 150M
+php_value upload_max_filesize 30M
+php_value post_max_size 30M
+php_value max_input_time 500
+php_value zlib.output_compression 16386
